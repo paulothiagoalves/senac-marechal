@@ -2,7 +2,7 @@
 	require_once("inc/header.php"); 
 	$conteudo = consultarConteudo($_GET["id"]);
 	$acervo = listarAcervo($_GET["id"]);
-	//echo count($acervo); exit();
+	if(count($acervo) > 0) {
 ?>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -37,7 +37,14 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-
+	<?php } else { ?>
+	<div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+		<div class="col-md-6 px-0">
+			<h1 class="display-4 font-italic"><?=$conteudo["nome_sessao"]?> / <?=$conteudo["titulo"]?> </h1>
+		</div>
+	</div>
+	
+	<?php } ?>
 
   <!-- Marketing messaging and featurettes
   ================================================== -->
@@ -45,9 +52,9 @@
 
   <div class="container marketing">
 
-    <h1>Titulo</h1>
+    <h1><?=$conteudo["titulo"]?></h1>
 	
-	<p>Texto</p>
+	<p><?=$conteudo["texto"]?></p>
 
   </div><!-- /.container -->
   
