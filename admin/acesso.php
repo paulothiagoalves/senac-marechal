@@ -1,73 +1,96 @@
 <?php 
 	require_once("../app.php");
-	if(isset($_POST["btnSignIn"])) {
+	$error = false;
+	if(isset($_POST["btnEntrar"])) {
 		$usuario 	= $_POST["txtUsuario"];
 		$senha 		= $_POST["txtSenha"];
 		$user = autenticacaoUsuario($usuario, $senha);
 		if(!is_null($user)) {
 			criarCredencial($user);
 		} else {
-			echo "<script> alert('Usuario e senha incorreto.'); </script>";
+			$error = true;
 		}
 	}
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
-    <title>CMS - Acesso a área administrativa</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
-
-    <!-- Bootstrap core CSS -->
-<link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/4.3/examples/floating-labels/floating-labels.css" rel="stylesheet">
-  </head>
-  <body>
-    <form class="form-signin" method="POST" action="#">
-		<div class="text-center mb-4">
-			<h1 class="h3 mb-3 font-weight-normal">Acesso ao sistema</h1>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>CMS - Acesso a área administrativa</title>
+		<!-- Custom fonts for this template-->
+		<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+		<!-- Custom styles for this template-->
+		<link href="css/sb-admin-2.min.css" rel="stylesheet">
+	</head>
+	<body class="bg-gradient-primary">
+		<div class="container">
+			<!-- Outer Row -->
+			<div class="row justify-content-center">
+				<div class="col-xl-10 col-lg-12 col-md-9">
+					<div class="card o-hidden border-0 shadow-lg my-5">
+						<div class="card-body p-0">
+							<!-- Nested Row within Card Body -->
+							<div class="row">
+								<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+								<div class="col-lg-6">
+									<div class="p-5">
+										<div class="text-center">
+											<h1 class="h4 text-gray-900 mb-4">Bem vindo</h1>
+										</div>
+										
+										<div id="msg-display" class="alert alert-danger" style="display:none;" role="alert">
+											[msg]
+										</div>
+										
+										<form  class="user" method="POST" action="#">
+											<div class="form-group">
+												<input type="text" id="txtUsuario" name="txtUsuario" class="form-control form-control-user" placeholder="Usuário" required autofocus>
+											</div>
+											<div class="form-group">
+												<input type="password" id="txtSenha" name="txtSenha" class="form-control form-control-user" placeholder="Password" required>
+											</div>
+											<div class="form-group">
+												<div class="custom-control custom-checkbox small">
+													<input type="checkbox" class="custom-control-input" id="customCheck">
+													<label class="custom-control-label" for="customCheck">Lembrar da minha senha</label>
+												</div>
+											</div>
+											<button class="btn btn-primary btn-user btn-block" type="submit" name="btnEntrar">Entrar</button>
+										</form>
+										<hr>
+										<div class="text-center">
+											<a class="small" href="esqueci-minha-senha.php">Esqueceu a sua senha?</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="form-label-group">
-			<input type="text" id="txtUsuario" name="txtUsuario" class="form-control" placeholder="Usuário" required autofocus>
-			<label for="txtUsuario">Usuário</label>
-		</div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<div class="form-label-group">
-			<input type="password" id="txtSenha" name="txtSenha" class="form-control" placeholder="Password" required>
-			<label for="txtSenha">Senha</label>
-		</div>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-		<div class="checkbox mb-3">
-			<label>
-				<input type="checkbox" value="remember-me"> Lembrar da minha senha
-			</label>
-		</div>
-		<button class="btn btn-lg btn-primary btn-block" type="submit" name="btnSignIn">Sign in</button>
-		<p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2019</p>
-</form>
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <?php if($error) { ?>
+  <script>
+	$(document).ready(function(){
+		$("#msg-display").html("O preenchimento do <b>usuário</b> ou <b>senha</b> estão incorretos ou a <b>credencial foi inativada</b>. Favor entrar em contato com administrador.").fadeIn("slow");
+	});
+  </script>
+  <?php } ?>
 </body>
+
 </html>

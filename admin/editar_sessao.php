@@ -38,49 +38,46 @@
 		}
 	}
 ?>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2"><?= $eEdicao ? "Editar" : "Adicionar"?> Sessões</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <a href="listar_sessao.php" class="btn btn-sm btn-outline-primary">Voltar</a>
-          </div>
-        </div>
-      </div>
 
-      <h2>Editar</h2>
-	  <?php if(isset($_GET["msg"])) { ?>
-	  <div class="row">
-		<div id="msg" class="alert alert-success" role="alert" >
-			<?=$_GET["msg"];?>
-		</div>
-	  </div>
-	  <?php } ?>
-      <div class="row">
-		<div class="col-md-12">
-			<form method="post" action="#">
-				<div class="form-group">
-					<label for="txtNome">Nome:</label>
-					<input type="text" class="form-control" id="txtNome" name="txtNome" required placeholder="Nome da sessão" value="<?=$nome?>" />
-				</div>
-				<div class="form-group">
-					<label for="selAtivo">Ativo:</label>
-					<select name="selAtivo" id="selAtivo" class="form-control" required>
-						<option value="">Selecione um opção</option>
-						<option value="1" <?= $ativo == 1 ? "selected='selected'" : "" ?> >Sim</option>
-						<option value="0" <?= $ativo == 0 ? "selected='selected'" : "" ?> >Não</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<?php if(!$eEdicao) { ?>
-					<input type="submit" name="btnIncluir" id="btnIncluir" class="btn btn-success" value="Adicionar" onclick="return confirm('Deseja realmente incluir esse registro?');" />
-					<?php } else { ?>
-					<input type="submit" name="btnAlterar" id="btnAlterar" class="btn btn-success" value="Salvar" onclick="return confirm('Deseja realmente alterar esse registro?');" />
-					<input type="submit" name="btnExcluir" id="btnExcluir" class="btn btn-danger" value="Excluir" onclick="return confirm('Deseja realmente excluir esse registro?');" />
+	<div class="card shadow mb-10">
+		<div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"><?= $eEdicao ? "Editar" : "Adicionar"?> Sessões</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+				<div class="col-md-12">
+					<?php if(isset($_GET["msg"])) { ?>
+						<div id="msg" class="alert alert-success" role="alert" >
+							<?=$_GET["msg"];?>
+						</div>
 					<?php } ?>
+				
+					<form method="post" action="#">
+						<div class="form-group">
+							<label for="txtNome">Nome:</label>
+							<input type="text" class="form-control" id="txtNome" name="txtNome" required placeholder="Nome da sessão" value="<?=$nome?>" />
+						</div>
+						<div class="form-group">
+							<label for="selAtivo">Ativo:</label>
+							<select name="selAtivo" id="selAtivo" class="form-control" required>
+								<option value="">Selecione um opção</option>
+								<option value="1" <?= $ativo == 1 ? "selected='selected'" : "" ?> >Sim</option>
+								<option value="0" <?= $ativo == 0 ? "selected='selected'" : "" ?> >Não</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<?php if(!$eEdicao) { ?>
+							<button type="submit" name="btnIncluir" id="btnIncluir" class="btn btn-outline-success" onclick="return confirm('Deseja realmente incluir esse registro?');"><i class="fas fa-save"></i> Adicionar </button>
+							<?php } else { ?>
+							<button type="submit" name="btnAlterar" id="btnAlterar" class="btn btn-outline-success" value="Salvar" onclick="return confirm('Deseja realmente alterar esse registro?');" ><i class="fas fa-save"></i> Alterar </button>
+							<button type="submit" name="btnExcluir" id="btnExcluir" class="btn btn-outline-danger" value="Excluir" onclick="return confirm('Deseja realmente excluir esse registro?');" ><i class="fas fa-trash"></i> Excluir</button>
+							<?php } ?>
+							<a href="listar_sessao.php" class="btn btn-outline-primary"><i class="fas fa-arrow-left"></i> Voltar</a>
+						</div>
+					</form>
 				</div>
-			</form>
-		</div>
-      </div>
-    </main>
+			</div>
+        </div>
+	</div>
+
   <?php require_once("inc/footer.php"); ?>
