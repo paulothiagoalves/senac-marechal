@@ -24,15 +24,24 @@
 						<th>Usuário</th>
 						<th>E-mail</th>
 						<th>Ativo</th>
+						<th></th>
                     </tr>
                   </thead>
 				  <tbody>
 					<?php foreach($list as $i) { ?>
 					<tr>
-						<td><a href="editar_usuario.php?id=<?=$i["id"]?>"><?=$i["nome"]?></a></td>
+						<td><?=$i["nome"]?></td>
 						<td><?=$i["usuario"]?></td>
 						<td><?=$i["email"]?></td>
 						<td><?=$i["ativo"] == 1 ? "Sim" : "Não" ?></td>
+						<td>
+							<a href="editar_usuario.php?id=<?=$i["id"]?>" class="btn btn-outline-primary btn-circle btn-sm">
+									<i class="fas fa-edit"></i>
+							</a>
+							<a href="#" class="btn btn-outline-danger btn-circle btn-sm">
+									<i class="fas fa-trash"></i>
+							</a>
+						</td>
 					</tr>
 					<?php } ?>
 				  </tbody>
