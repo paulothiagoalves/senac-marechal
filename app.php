@@ -213,12 +213,16 @@
 		return $arr;
 	}
 	
-	function listarAcervo($idConteudo) {
+	function listarAcervo($idConteudo, $ativo) {
 		$cnn = abrirConexao();
-		$sql = "SELECT * FROM acervo ";
+		$sql = "SELECT * FROM acervo WHERE 1 = 1 ";
 		if(!is_null($idConteudo)) {
 			$idConteudo = mysqli_real_escape_string($cnn, $idConteudo);
-			$sql .= " WHERE conteudo_id = $idConteudo ";
+			$sql .= " AND conteudo_id = $idConteudo ";
+		}
+		if(!is_null($ativo)) {
+			$ativo = mysqli_real_escape_string($cnn, $ativo);
+			$sql .= " AND ativo = $ativo ";
 		}
 		$sql .= " ORDER BY ordem ASC, id DESC ";
 		$arr = listar($cnn, $sql);

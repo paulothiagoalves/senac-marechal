@@ -3,40 +3,53 @@
 	$list = listarConteudo(NULL, NULL);
 ?>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Conteúdos</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <a href="editar_conteudo.php" class="btn btn-sm btn-outline-primary">Novo conteúdo</a>
-          </div>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+			<h6 class="m-0 font-weight-bold text-primary">Conteúdos</h6>
+			<a href="editar_conteudo.php" class="btn btn-outline-primary"><i class="fas fa-plus"></i> Adicionar</a>
         </div>
-      </div>
+		
+        <div class="card-body">
+			<div class="row">
+				<div class="col-md-12">
+					
+				</div>
+			</div>
+			<div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Sessão</th>
+							<th>Data de publicação</th>
+							<th>Título</th>
+							<th>Ativo</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php foreach($list as $i) { ?>
+						<tr>
+							<td><?=$i["nome_sessao"]?></td>
+							<td><?=formataData($i["data_publicacao"])?></td>
+							<td><?=$i["titulo"]?></td>
+							<td><?=$i["ativo"] == 1 ? "Sim" : "Não" ?></td>
+							<td>
+								<a href="editar_conteudo.php?id=<?=$i["id"]?>" class="btn btn-outline-primary btn-circle btn-sm">
+									<i class="fas fa-edit"></i>
+								</a>
+								<a href="editar_sessao.php?id=<?=$i["sessao_id"]?>" class="btn btn-outline-primary btn-circle btn-sm">
+									<i class="fas fa-sitemap"></i>
+								</a>
+								<a href="#" class="btn btn-outline-danger btn-circle btn-sm">
+									<i class="fas fa-trash"></i>
+								</a>
+							</td>
+						</tr>
+					<?php } ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
-      <h2>Resultado</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>Id</th>
-			  <th>Sessão</th>
-              <th>Data de publicação</th>
-			  <th>Título</th>
-              <th>Ativo</th>
-            </tr>
-          </thead>
-          <tbody>
-		  <?php foreach($list as $i) { ?>
-            <tr>
-              <td>#<?=$i["id"]?></td>
-			  <td><?=$i["nome_sessao"]?></td>
-			  <td><?=formataData($i["data_publicacao"])?></td>
-              <td><a href="editar_conteudo.php?id=<?=$i["id"]?>"><?=$i["titulo"]?></a></td>
-              <td><?=$i["ativo"] == 1 ? "Sim" : "Não" ?></td>
-            </tr>
-		  <?php } ?>
-          </tbody>
-        </table>
-      </div>
-    </main>
   <?php require_once("inc/footer.php"); ?>

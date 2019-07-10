@@ -59,14 +59,14 @@
 			
 			<li class="nav-item">
 				<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSessao" aria-expanded="true" aria-controls="collapseSessao">
-					<i class="fas fa-fw fa-folder"></i>
+					<i class="fas fa-fw fa-sitemap"></i>
 					<span>Sessões</span>
 				</a>
 				<div id="collapseSessao" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">O que você deseja:</h6>
 						<a class="collapse-item" href="listar_sessao.php">Listar sessões</a>
-						<a class="collapse-item" href="editar_sessao.php">Adicinar sessão</a>
+						<a class="collapse-item" href="editar_sessao.php">Adicionar sessão</a>
 					</div>
 				</div>
 			</li>
@@ -81,7 +81,7 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">O que você deseja:</h6>
 						<a class="collapse-item" href="listar_conteudo.php">Listar conteúdos</a>
-						<a class="collapse-item" href="editar_conteudo.php">Adicinar conteúdo</a>
+						<a class="collapse-item" href="editar_conteudo.php">Adicionar conteúdo</a>
 					</div>
 				</div>
 			</li>

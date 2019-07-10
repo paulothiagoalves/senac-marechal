@@ -71,65 +71,61 @@
 		}
 	}
 ?>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2"><?= $eEdicao ? "Editar" : "Adicionar"?> Usuário</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <a href="listar_usuario.php" class="btn btn-sm btn-outline-primary">Voltar</a>
-          </div>
-        </div>
-      </div>
-
-      <h2>Editar</h2>
-	  <div class="row">
-		<div id="msg" class="alert alert-success" role="alert" style="display:none;">
-			A simple success alert—check it out!
+<div class="card shadow mb-10">
+	<div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><?= $eEdicao ? "Editar" : "Adicionar"?> Conteúdo</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+			<div class="col-md-12">
+				<?php if(isset($_GET["msg"])) { ?>
+					<div id="msg" class="alert alert-success" role="alert" >
+						<?=$_GET["msg"];?>
+					</div>
+				<?php } ?>
+				<form method="post" action="#">
+					<div class="form-group">
+						<label for="txtNome">Nome:</label>
+						<input type="text" class="form-control" id="txtNome" name="txtNome" required placeholder="Nome completo" value="<?=$nome?>" />
+					</div>
+					<div class="form-group">
+						<label for="txtUsuario">Usuário:</label>
+						<input type="text" class="form-control" id="txtUsuario" name="txtUsuario" required placeholder="Usuário de sistema" value="<?=$usuario?>" />
+					</div>
+					<div class="form-group">
+						<label for="txtSenha">Senha:</label>
+						<input type="password" class="form-control" id="txtSenha" name="txtSenha" placeholder="Senha do usuário" value="<?=$senha?>" />
+					</div>
+					<div class="form-group">
+						<label for="txtConfirmacaoSenha">Confirmação de senha:</label>
+						<input type="password" class="form-control" id="txtConfirmacaoSenha" name="txtConfirmacaoSenha"  placeholder="Confirmação de senha do usuário" value="<?=$confirmacaoSenha?>" />
+					</div>
+					<div class="form-group">
+						<label for="txtEmail">E-mail:</label>
+						<input type="email" class="form-control" id="txtEmail" name="txtEmail" required placeholder="E-mail do usuário" value="<?=$email?>" />
+					</div>
+					<div class="form-group">
+						<label for="selAtivo">Ativo:</label>
+						<select name="selAtivo" id="selAtivo" class="form-control" required>
+							<option value="">Selecione um opção</option>
+							<option value="1" <?= $ativo == 1 ? "selected='selected'" : "" ?> >Sim</option>
+							<option value="0" <?= $ativo == 0 ? "selected='selected'" : "" ?> >Não</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<?php if(!$eEdicao) { ?>
+						<button type="submit" name="btnIncluir" id="btnIncluir" class="btn btn-outline-success" onclick="return confirm('Deseja realmente incluir esse registro?');"><i class="fas fa-save"></i> Adicionar </button>
+						<?php } else { ?>
+						<button type="submit" name="btnAlterar" id="btnAlterar" class="btn btn-outline-success" value="Salvar" onclick="return confirm('Deseja realmente alterar esse registro?');" ><i class="fas fa-save"></i> Alterar </button>
+						<button type="submit" name="btnExcluir" id="btnExcluir" class="btn btn-outline-danger" value="Excluir" onclick="return confirm('Deseja realmente excluir esse registro?');" ><i class="fas fa-trash"></i> Excluir</button>
+						<?php } ?>
+						<a href="listar_usuario.php" class="btn btn-outline-primary"><i class="fas fa-arrow-left"></i> Voltar</a>
+					</div>
+				</form>
+			</div>
 		</div>
-	  </div>
-      <div class="row">
-		<div class="col-md-12">
-			<form name="form" id="form" method="post" action="#">
-				<div class="form-group">
-					<label for="txtNome">Nome:</label>
-					<input type="text" class="form-control" id="txtNome" name="txtNome" required placeholder="Nome da sessão" value="<?=$nome?>" />
-				</div>
-				<div class="form-group">
-					<label for="txtUsuario">Usuário:</label>
-					<input type="text" class="form-control" id="txtUsuario" name="txtUsuario" required placeholder="Nome do usuário" value="<?=$usuario?>" />
-				</div>
-				<div class="form-group">
-					<label for="txtSenha">Senha:</label>
-					<input type="password" class="form-control" id="txtSenha" name="txtSenha" placeholder="Senha do usuário" value="<?=$senha?>" />
-				</div>
-				<div class="form-group">
-					<label for="txtConfirmacaoSenha">Confirmação de senha:</label>
-					<input type="password" class="form-control" id="txtConfirmacaoSenha" name="txtConfirmacaoSenha"  placeholder="Confirmação de senha do usuário" value="<?=$confirmacaoSenha?>" />
-				</div>
-				<div class="form-group">
-					<label for="txtEmail">E-mail:</label>
-					<input type="email" class="form-control" id="txtEmail" name="txtEmail" required placeholder="E-mail do usuário" value="<?=$email?>" />
-				</div>
-				<div class="form-group">
-					<label for="selAtivo">Ativo:</label>
-					<select name="selAtivo" id="selAtivo" class="form-control" required>
-						<option value="">Selecione um opção</option>
-						<option value="1" <?= $ativo == 1 ? "selected='selected'" : "" ?> >Sim</option>
-						<option value="0" <?= $ativo == 0 ? "selected='selected'" : "" ?> >Não</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<?php if(!$eEdicao) { ?>
-					<input type="submit" name="btnIncluir" id="btnIncluir" class="btn btn-success" value="Adicionar" onclick="return adicionar();" />
-					<?php } else { ?>
-					<input type="submit" name="btnAlterar" id="btnAlterar" class="btn btn-success" value="Salvar" />
-					<input type="submit" name="btnExcluir" id="btnExcluir" class="btn btn-danger" value="Excluir" />
-					<?php } ?>
-				</div>
-			</form>
-		</div>
-      </div>
-    </main>
+	</div>
+</div>
   <?php require_once("inc/footer.php"); ?>
   <script>
 	function adicionar() {
