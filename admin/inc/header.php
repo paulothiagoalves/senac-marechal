@@ -5,6 +5,7 @@
 	if(isset($_GET["logout"])) {
 		destruirCredencial();
 	}
+	$contatosNovos = listarContato(0, 10);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +120,7 @@
 						<h6 class="collapse-header">O que você deseja:</h6>
 						<a class="collapse-item" href="listar_usuario.php">Listar usuários</a>
 						<a class="collapse-item" href="editar_usuario.php">Adicionar usuário</a>
-						<a class="collapse-item" href="#">Redefinir senha</a>
+						<a class="collapse-item" href="redefinir_senha.php">Redefinir senha</a>
 					</div>
 				</div>
 			</li>
@@ -249,54 +250,43 @@
 					<a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fas fa-envelope fa-fw"></i>
 						<!-- Counter - Messages -->
-						<span class="badge badge-danger badge-counter">7</span>
+						<?php if(count($contatosNovos) > 0) { ?>
+						<span class="badge badge-danger badge-counter"><?=count($contatosNovos)?></span>
+						<?php } ?>
 					</a>
 					<!-- Dropdown - Messages -->
 					<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
 						<h6 class="dropdown-header">
-							Message Center
+							Novos contatos
 						</h6>
-						<a class="dropdown-item d-flex align-items-center" href="#">
-						<div class="dropdown-list-image mr-3">
-							<img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+						<?php
+							if(count($contatosNovos) == 0) {
+								echo "Não existem contatos até o momento.";
+							} else {
+								foreach($contatosNovos as $i) {
+						?>
+						<a class="dropdown-item d-flex align-items-center" href="editar_contato.php?id=<?=$i["id"]?>">
+							<div class="mr-3">
+								<div class="icon-circle bg-primary">
+									<i class="fas fa-envelope text-white"></i>
+								</div>
+							</div>
+						<!-- <div class="dropdown-list-image mr-3">
+							
+							<img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt=""> 
+							
 							<div class="status-indicator bg-success"></div>
-						</div>
+						</div>-->
 						<div class="font-weight-bold">
-							<div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-							<div class="small text-gray-500">Emily Fowler · 58m</div>
+							<div class="text-truncate"><?=$i["assunto"]?></div>
+							<div class="small text-gray-500"><?=$i["nome"]?> · <?=formataData($i["data"])?></div>
 						</div>
 					</a>
-					<a class="dropdown-item d-flex align-items-center" href="#">
-						<div class="dropdown-list-image mr-3">
-							<img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-							<div class="status-indicator"></div>
-						</div>
-						<div>
-							<div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-							<div class="small text-gray-500">Jae Chun · 1d</div>
-						</div>
-					</a>
-					<a class="dropdown-item d-flex align-items-center" href="#">
-						<div class="dropdown-list-image mr-3">
-							<img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-							<div class="status-indicator bg-warning"></div>
-						</div>
-						<div>
-							<div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-							<div class="small text-gray-500">Morgan Alvarez · 2d</div>
-						</div>
-					</a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+						<?php
+								}
+							}
+						?>
+					<a class="dropdown-item text-center small text-gray-500" href="listar_contato.php">Leia mais</a>
               </div>
             </li>
 

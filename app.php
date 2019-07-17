@@ -229,6 +229,52 @@
 		fecharConexao($cnn);
 		return $arr;
 	}
+	
+	function incluirContato($nome, $email, $assunto, $texto) {
+		$cnn = abrirConexao();
+		$ip 	= $_SERVER["REMOTE_ADDR"];
+		$nome = mysqli_real_escape_string($cnn, $nome);
+		$email = mysqli_real_escape_string($cnn, $email);
+		$assunto = mysqli_real_escape_string($cnn, $assunto);
+		$texto = mysqli_real_escape_string($cnn, $texto);
+		$id = incluir($cnn, "INSERT INTO contato VALUES (NULL, CURRENT_TIMESTAMP, '$ip', '$nome', '$email', '$assunto', '$texto', 0)");
+		fecharConexao($cnn);
+		return $id;
+	}
+	
+	function alterarContato($id, $lido) {
+		$cnn = abrirConexao();
+		$id = mysqli_real_escape_string($cnn, $id);
+		$lido = mysqli_real_escape_string($cnn, $lido);
+		$con = alterarOuExcluir($cnn, "UPDATE contato SET lido='$lido' WHERE id = $id");
+		fecharConexao($cnn);
+		return $con;
+	}
+	
+	function consultarContato($id) {
+		$cnn = abrirConexao();
+		$id = mysqli_real_escape_string($cnn, $id);
+		$arr = consultar($cnn, "SELECT * FROM contato WHERE id = $id");
+		fecharConexao($cnn);
+		return $arr;
+	}
+	
+	function listarContato($lido, $qtd) {
+		$cnn = abrirConexao();
+		$sql = "SELECT * FROM contato ";
+		if(!is_null($lido)) {
+			$lido = mysqli_real_escape_string($cnn, $lido);
+			$sql .= " WHERE lido = $lido ";
+		}
+		$sql .= " ORDER BY data DESC, id DESC ";
+		if(!is_numeric($qtd)) {
+			$qtd = mysqli_real_escape_string($cnn, $qtd);
+			$sql .= " LIMIT $qtd ";
+		}
+		$arr = listar($cnn, $sql);
+		fecharConexao($cnn);
+		return $arr;
+	}
 
 	function incluirUsuario($nome, $usuario, $email, $senha, $ativo) {
 		$cnn = abrirConexao();
