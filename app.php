@@ -314,6 +314,26 @@
 		fecharConexao($cnn);
 		return $arr;
 	}
+	function consultarUsuarioPor($id, $usuario, $email) {
+		$cnn = abrirConexao();
+		$sql = "SELECT id, nome, usuario, email, ativo FROM usuario WHERE 1 = 1 ";
+		if(!is_null($id) && is_numeric($id)) {
+			$id = mysqli_real_escape_string($cnn, $id);
+			$sql .= " AND id = $id ";
+		}
+		if(!is_null($usuario)) {
+			$usuario = mysqli_real_escape_string($cnn, $usuario);
+			$sql .= " AND usuario = '$usuario' ";
+		}
+		if(!is_null($email)) {
+			$email = mysqli_real_escape_string($cnn, $email);
+			$sql .= " AND email = '$email' ";
+		}
+		
+		$arr = consultar($cnn, $sql);
+		fecharConexao($cnn);
+		return $arr;
+	}
 	function listarUsuario() {
 		$cnn = abrirConexao();
 		$arr = listar($cnn, "SELECT id, nome, usuario, email, ativo  FROM usuario");

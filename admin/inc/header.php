@@ -261,7 +261,7 @@
 						</h6>
 						<?php
 							if(count($contatosNovos) == 0) {
-								echo "Não existem contatos até o momento.";
+								echo "<span class='dropdown-item'> Não existem novos contatos até o momento.</span>";
 							} else {
 								foreach($contatosNovos as $i) {
 						?>
