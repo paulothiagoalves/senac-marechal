@@ -1,4 +1,5 @@
 <?php 
+    /*teste*/
 	define("SERVIDOR", "127.0.0.1");
 	define("PORTA", "3306");
 	define("USUARIO", "root");
